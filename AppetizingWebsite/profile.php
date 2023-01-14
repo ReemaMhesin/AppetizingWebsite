@@ -31,7 +31,7 @@ if(isset($_POST['up'])) {
 
 
 
-                $db = new mysqli('localhost', 'root', '', 'graduation');
+                $db = new mysqli('localhost', 'root', '', 'graduationjawna');
 
                 $qryStr = "select * from admin";
                 $res = $db->query($qryStr);
@@ -156,7 +156,7 @@ if(isset($_POST['up'])) {
         <li><a href="profile.php">Profile</a></li>
         <li><a href="Products.php">Your Products</a></li>
         <li><a href="addProducts.php">Add Products</a></li>
-        <li><a href="updateProducts.php">Update Products</a></li>
+        <li><a href="updateProducts.php">Visualization</a></li>
         <li><a href="deleteProducts.php">Delete Products</a></li>
         <li><a href="customers.php">Customers</a></li>
         <li><a href="map.php">Market Location</a></li>
@@ -201,7 +201,7 @@ if(isset($_POST['up'])) {
 
     $namee=$_SESSION['admin'];
 
-    $connect = mysqli_connect("localhost", "root", "", "graduation");
+    $connect = mysqli_connect("localhost", "root", "", "graduationjawna");
 
     $query = "select * from admin WHERE AdminName='$namee'";
     $res = mysqli_query($connect, $query);

@@ -2,7 +2,7 @@
 
 
 try {
-    $db = new mysqli('localhost', 'root', '', 'graduation');
+    $db = new mysqli('localhost', 'root', '', 'graduationjawna');
     $qryStr = "SELECT * FROM admin";
     $res = $db->query($qryStr);
 

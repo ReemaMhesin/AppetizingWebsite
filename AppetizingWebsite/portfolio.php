@@ -13,7 +13,7 @@ if (isset($_POST['name'])&&isset($_POST['password'])){
     $password=$_POST['password'];
 
         try{
-            $db = new mysqli('localhost', 'root', '', 'graduation');
+            $db = new mysqli('localhost', 'root', '', 'graduationjawna');
             $qryStr = "select * from admin";
             $res = $db->query($qryStr);
             for ($s = 0; $s < $res->num_rows; $s++) {

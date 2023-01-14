@@ -65,7 +65,7 @@ if(isset($_POST['delete'])) {
           <li><a href="profile.php">Profile</a></li>
           <li><a href="Products.php">Your Products</a></li>
           <li><a href="addProducts.php">Add Products</a></li>
-          <li><a href="updateProducts.php">Update Products</a></li>
+          <li><a href="updateProducts.php">Visualization</a></li>
           <li><a href="deleteProducts.php">Delete Products</a></li>
           <li><a href="customers.php">Customers</a></li>
           <li><a href="map.php">Market Location</a></li>

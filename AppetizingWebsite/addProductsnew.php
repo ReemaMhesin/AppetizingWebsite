@@ -1,52 +1,5 @@
 <?php
 
-$values = array(
-    "wheat", "rye", "oats", "corn", "barley", "buckwheat", "rice", "bread", "rolls", "buns", "cakes", "cookies", "pies", "cereal", "corn flakes",
-    "icre flakes", "muesli", "popcorn", "pasta", "macaroni", "noodles", "spaghetti", "vermicelli", "ravioli", "dumplings", "flour", "dough", "batter",
-    "cake mix", "bread",
-    "white bread", "whole-wheat bread", " rye bread", "raisin bread", " garlic bread", "corn bread", "sourdough bread",
-    "tortilla", "roll", "bread roll", "sesame roll", " poppy seed roll", "cinnamon roll", "cracker", "biscuit", "cookie", "toast",
-    "wafer", "waffle", "crouton", "cake", "birthday cake", "cheesecake", "cupcake", " fudge brownie", " oatmeal cookie",
-    "chocolate cookie", "pie", "apple pie", " blueberry pie", "pizza", "blueberry muffin", "biscuit", " sour cream", "biscuit", "pancake",
-    "doughnut", "fritter", "waffle", "meat", "beef", "mutton", "roast beef", "ground beef", "hamburger",
-    "lamb chop", "bacon", "pastrami", "corned beef", "sausage", "salami", "smoked sausage", "hot dogs",
-    "chicken", "turkey", "goose", "duck", "fowl", "eggs", "drumstick", "chicken wing", "chicken breast", "fish", "salmon", "trout",
-    "sturgeon", "cod", "sole", "flatfish", "plaice", "halibut", "tuna",
-    "mullet", "sardine", "catfish", "caviar", "fish steak",
-    " salmon steak", "fish fillet", "smoked fish", " salted fish", "seafood", "crab",
-    "squid", "milk", "whole milk", "low-fat milk", "nonfat milk", "pasteurized milk", "dry milk", "condensed milk", "yogurt",
-    "sour milk", "buttermilk", "cream", " sour cream", "butter",
-    " homemade cheese", "cream cheese", "cheese", "Parmesan", "Cheddar", "Mozzarella",
-    "ice cream", "vanilla ice cream", "chocolate ice cream", "fruit ice", "strawberry ice", "ice-cream cone", "popsicle",
-    "sundae", "apple", "apricot",
-    "nectarine", "plum", "grapes", "cherry", "sweet cherry", "lemon", "lime", "orange", "tangerine", "grapefruit", "banana", "kiwi",
-    "pineapple",
-    "olive", "fig", "papaya", "mango", "avocado", "coconut", "persimmon", "melon", "watermelon", "berry", "strawberry",
-    "cranberry", "blueberry", "bilberry", "black currants", "red currants", "gooseberry", "blackberry", "whortleberry",
-    " dried fruit", "dried apricots",
-    "raisins", "figs", "prunes", "dates", "candied fruit", "nuts", "hazelnuts", "almonds", "chestnuts", "peanuts", "pistachio nuts",
-    "cashew nuts", "pecans", " apricot pits", "pumpkin seeds", "sunflower seeds", "raspberry jam", " cranberry jam",
-    " grape jelly", "marmalade", "honey", " peanut butter",
-    "leaf vegetables", "tomato", "cucumber", "carrot", "beet", "potato", "onion",
-    " green onions", "leek", "sweet pepper", "paprika", "hot pepper"
-, "cabbage", "cauliflower", "broccoli", "kohlrabi", "mushrooms", "lettuce", "spinach",
-    "celery", "asparagus", "artichoke", "cress", "garlic", "aubergine", "squash", "zucchini",
-    "pumpkin", "turnip", "parsnip", "pickled cucumbers ", "marinated cucumbers", "sauerkraut",
-    "beans", "soybeans",
-    "lentil", "corn", "coffee beans", "dill", "parsley", "coriander", "mint", "apple juice", "orange juice",
-    "grapefruit juice", "lemon juice", "tomato juice", "fresh fruit juice", "tea", "green tea", "black tea", "iced tea",
-    "coffee", "instant coffee", "espresso", "cappuccino", "decaf",
-    " black coffee", " hot chocolate", "milk shake", "mineral water",
-    "soda water", "lemonade", "cocktail", "punch", "tomato sauce", "ketchup",
-    "mushroom sauce", "meat sauce", "steak sauce", "gravy", "spaghetti sauce", "hot sauce", "chili sauce", "barbecue sauce",
-
-    "salad dressing", "Russian dressing", "Italian dressing", "French dressing", "vegetable oil",
-    "olive oil", " corn oil", "sunflower seed oil", "sesame oil", "margarine",
-    "seeds", "vinegar", "pepper",
-    "salt", "dill", "parsley", "mint", "coriander", "basil", " bay leaf",
-    "cinnamon", "caraway", "thyme", "cardamom", "rosemary", "garlic", "mustard", "lemon peel", "candy",
-    "caramels"
-);
 session_start();
 
 if(isset($_POST['add'])) {
@@ -59,30 +12,28 @@ if(isset($_POST['add'])) {
             && isset($_POST['Manufacturing']) && isset($_POST['expiryDate'])
             &&
 
-        isset($_FILES['image'])
+            isset($_FILES['image'])
         ) {
             $name = $_POST['name'];
-            $productNum = array_search($_POST['name'], $values);
+            $productNum = $_POST['productNum'];
             $quantity = $_POST['quantity'];
             $price = $_POST['Price'];
             $manufacturing = $_POST['Manufacturing'];
             $expiryDate = $_POST['expiryDate'];
-             $amount=$_POST['amount'];
+            $amount=$_POST['amount'];
             $var = $_SESSION['admin'];
             $connect = mysqli_connect("localhost", "root", "", "graduationjawna");
 //            $file = addslashes(file_get_contents($_FILES['image']['tmp_name']));
 
 
-//            $targetDir = "C:/Users/MIX-IT/Desktop/images/";
-
-            $targetDir = "assets/images/";
+            $targetDir = "C:/Users/MIX-IT/Desktop/images/";
             $file = basename($_FILES["image"]["name"]);
             $targetFilePath = $targetDir . $file;
             $fileType = pathinfo($targetFilePath,PATHINFO_EXTENSION);
 
             ?>
 
-    <?php
+            <?php
             try {
                 $db = new mysqli('localhost', 'root', '', 'graduationjawna');
                 $qryStr = " INSERT INTO `products` (`marketName`, `productName`, `quantity`, `price`, `manufacturing`, `expiryDate`, `productNumber`, `amount`,`image`) VALUES ('" . $var . "', '" . $name . "', '" . $quantity . "', '" . $price . "', '" . $manufacturing . "', '" . $expiryDate . "', '" . $productNum ."', '" . $amount . "','$targetFilePath'  ) ";
@@ -127,91 +78,91 @@ if(isset($_SESSION['admin'])){
     <meta content="" name="keywords">
 
     <meta charset="utf-8">
-  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title>Services - Moderna Bootstrap Template</title>
-  <meta content="" name="description">
-  <meta content="" name="keywords">
+    <title>Services - Moderna Bootstrap Template</title>
+    <meta content="" name="description">
+    <meta content="" name="keywords">
 
-  <!-- Favicons -->
-  <link href="assets/img/favicon.png" rel="icon">
-  <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+    <!-- Favicons -->
+    <link href="assets/img/favicon.png" rel="icon">
+    <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
 
-  <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Roboto:300,300i,400,400i,500,500i,700,700i&display=swap" rel="stylesheet">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Roboto:300,300i,400,400i,500,500i,700,700i&display=swap" rel="stylesheet">
 
-  <!-- Vendor CSS Files -->
-  <link href="assets/vendor/animate.css/animate.min.css" rel="stylesheet">
-  <link href="assets/vendor/aos/aos.css" rel="stylesheet">
-  <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-  <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
-  <link href="assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
-  <link href="assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
-  <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+    <!-- Vendor CSS Files -->
+    <link href="assets/vendor/animate.css/animate.min.css" rel="stylesheet">
+    <link href="assets/vendor/aos/aos.css" rel="stylesheet">
+    <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+    <link href="assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+    <link href="assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+    <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
 
-  <!-- Template Main CSS File -->
-  <link href="assets/css/style.css" rel="stylesheet">
+    <!-- Template Main CSS File -->
+    <link href="assets/css/style.css" rel="stylesheet">
 
-  <!-- =======================================================
-  * Template Name: Moderna - v4.10.1
-  * Template URL: https://bootstrapmade.com/free-bootstrap-template-corporate-moderna/
-  * Author: BootstrapMade.com
-  * License: https://bootstrapmade.com/license/
-  ======================================================== -->
+    <!-- =======================================================
+    * Template Name: Moderna - v4.10.1
+    * Template URL: https://bootstrapmade.com/free-bootstrap-template-corporate-moderna/
+    * Author: BootstrapMade.com
+    * License: https://bootstrapmade.com/license/
+    ======================================================== -->
 </head>
 
 <body>
 
 <!-- ======= Header ======= -->
 <header id="header" class="fixed-top d-flex align-items-center ">
-  <div class="container d-flex justify-content-between align-items-center">
+    <div class="container d-flex justify-content-between align-items-center">
 
-    <div class="logo">
-      <h1 class="text-light"><a href="index.html"><span>Appetizing</span></a></h1>
-      <!-- Uncomment below if you prefer to use an image logo -->
-      <!-- <a href="index.html"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
+        <div class="logo">
+            <h1 class="text-light"><a href="index.html"><span>Appetizing</span></a></h1>
+            <!-- Uncomment below if you prefer to use an image logo -->
+            <!-- <a href="index.html"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
+        </div>
+
+        <nav id="navbar" class="navbar">
+            <ul>
+                <li><a href="homePage.php">Home</a></li>
+                <li><a href="profile.php">Profile</a></li>
+                <li><a href="Products.php">Your Products</a></li>
+                <li><a href="addProducts.php">Add Products</a></li>
+                <li><a href="addProductsnew.php">Add special Products</a></li>
+                <li><a href="updateProducts.php">Visualization</a></li>
+                <li><a href="deleteProducts.php">Delete Products</a></li>
+                <li><a href="customers.php">Customers</a></li>
+                <li><a href="map.php">Market Location</a></li>
+
+            </ul>
+            <i class="bi bi-list mobile-nav-toggle"></i>
+            <form method="post">
+                <input  type="submit"  value="Sign Out " name="delete" class="active " style="background-color:rgba(109, 161, 75,75);color: white;font-weight: bold;border: none;margin-left: 6px;font-size: 13px">
+            </form>
+        </nav><!-- .navbar -->
+
     </div>
-
-    <nav id="navbar" class="navbar">
-      <ul>
-        <li><a href="homePage.php">Home</a></li>
-        <li><a href="profile.php">Profile</a></li>
-        <li><a href="Products.php">Your Products</a></li>
-        <li><a href="addProducts.php">Add Products</a></li>
-          <li><a href="addProductsnew.php">Add special Products</a></li>
-        <li><a href="updateProducts.php">Visualization</a></li>
-        <li><a href="deleteProducts.php">Delete Products</a></li>
-        <li><a href="customers.php">Customers</a></li>
-        <li><a href="map.php">Market Location</a></li>
-
-      </ul>
-      <i class="bi bi-list mobile-nav-toggle"></i>
-      <form method="post">
-        <input  type="submit"  value="Sign Out " name="delete" class="active " style="background-color:rgba(109, 161, 75,75);color: white;font-weight: bold;border: none;margin-left: 6px;font-size: 13px">
-      </form>
-    </nav><!-- .navbar -->
-
-  </div>
 </header><!-- End Header -->
 
 <main id="main">
 
-  <!-- ======= Our Services Section ======= -->
-  <section class="breadcrumbs">
-    <div class="container">
+    <!-- ======= Our Services Section ======= -->
+    <section class="breadcrumbs">
+        <div class="container">
 
-      <div class="d-flex justify-content-between align-items-center">
-        <h2>Add Products</h2>
-        <ol>
-          <li><a href="homePage.php">Home</a></li>
-          <li>Add Your Products</li>
-        </ol>
-      </div>
+            <div class="d-flex justify-content-between align-items-center">
+                <h2>Add Special Products</h2>
+                <ol>
+                    <li><a href="homePage.php">Home</a></li>
+                    <li>Add Your Products</li>
+                </ol>
+            </div>
 
-    </div>
-  </section><!-- End Our Services Section -->
+        </div>
+    </section><!-- End Our Services Section -->
 
-  <!-- ======= Services Section ======= -->
+    <!-- ======= Services Section ======= -->
     <section id="blog" class="blog">
         <div class="container" data-aos="fade-up">
 
@@ -222,45 +173,26 @@ if(isset($_SESSION['admin'])){
                         <div class="row ">
                             <label for="name" class="label"><i class="fa fa-phone"></i>Product Name</label>
                             <div class="mb-3">
-                                <div class="row-fluid">
-                                    <select class="selectpicker" data-show-subtext="true" data-live-search="true" style="height: 10px" id="name" required name="name">
-                                        <?php
-                                        foreach ($values as $key=>$value){
-                                            $selected = ($key==0)?" Selected=\"Selected\"": "";
-                                            echo "<option data-subtext=\"\" $selected > $value </option>";
-                                        }
-                                        ?>
-                                    </select>
+                                <input type="text" class="form-control" name="name" id="name" placeholder="Product Name" required>
 
-                                </div>
-<!--                                    <select id="name" required name="name" class="form-control">-->
-<!--                                        <option id="srch" type="text" name="search">-->
-<!--                                 --><?php
-//
-//                                        for ($s = 0; $s < count($values); $s++) {
-//
-//                                            echo
-//                                                '<option id="choice" name="choice" value="' . $values[$s] . '">' . $values[$s] . '</option>';
-//
-//                                            //304
-//                                        }
-//
-//                                        ?>
-<!--                                    </select>-->
                             </div>
+                            <label for="productNum" class="label"><i class="fa fa-phone"></i>Product Number</label>
+                            <div class="mb-3">
+                                <input type="text" class="form-control" name="productNum" id="productNum" placeholder="Product Number" required>
 
+                            </div>
                             <label for="quantity" class="label"><i class="fa fa-phone" ></i>Quantity</label>
-                        <div class=" mb-3">
+                            <div class=" mb-3">
                                 <input type="text" class="form-control" name="quantity" id="quantity" placeholder="Quantity" required>
-                        </div>
+                            </div>
                             <label for="amount" class="label"><i class="fa fa-phone" ></i>Amount</label>
                             <div class=" mb-3">
                                 <input type="text" class="form-control" name="amount" id="amount" placeholder="Amount" required>
                             </div>
                             <label for="Price" class="label"><i class="fa fa-phone"></i> Price</label>
-                        <div class=" mb-3">
+                            <div class=" mb-3">
                                 <input type="text" class="form-control" name="Price" id="Price" placeholder="Price In Dollar" required>
-                        </div>
+                            </div>
                             <label for="Manufacturing" class="label"><i class="fa fa-phone"></i>Manufacturing</label>
                             <div class=" mb-3">
                                 <input type="text" class="form-control" name="Manufacturing" id="Manufacturing" placeholder="Manufacturing" required>
@@ -272,12 +204,12 @@ if(isset($_SESSION['admin'])){
 
                             <input type="file" class="form-control" id="image" placeholder="image" name="image" required>
 
-                        <div class="text-center"> <input type="submit" value="Add Product" id="add" name="add"></div>
+                            <div class="text-center"> <input type="submit" value="Add Product" id="add" name="add"></div>
 
-                </div>
+                        </div>
                     </form>
+                </div>
             </div>
-        </div>
     </section><!-- End Blog Section -->
 
 </main><!-- End #main -->

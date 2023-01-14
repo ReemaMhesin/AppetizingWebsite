@@ -13,7 +13,7 @@ if (isset($_GET['name'])
     $password = $_GET['password'];
 
     try {
-        $db = new mysqli('localhost', 'root', '', 'graduation');
+        $db = new mysqli('localhost', 'root', '', 'graduationjawna');
         $qryStr = " INSERT INTO `admin` (`AdminName`, `AdminPass`, `email`, `street`, `city`, `place`, `aboutMarket`) VALUES ('" . $name . "', '" . $password  . "', '" . $email. "', '" . $street. "', '" . $city . "', '" . $place . "', '" . $aboutMarket. "');";
 
         $db->query($qryStr);

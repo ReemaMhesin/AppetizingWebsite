@@ -6,7 +6,7 @@ function button1()
 {
     $var = "";
     try {
-         $db = new mysqli('localhost', 'root', '', 'graduation');
+         $db = new mysqli('localhost', 'root', '', 'graduationjawna');
         $qryStr = "select * from test";
         $res = $db->query($qryStr);
         for ($s = 0; $s < $res->num_rows; $s++) {
@@ -19,7 +19,7 @@ function button1()
     }
 
     try {
-        $conn = new mysqli('localhost', 'root', '', 'graduation');
+        $conn = new mysqli('localhost', 'root', '', 'graduationjawna');
 
         if ($conn->connect_error) {
             die("Connection failed: " . $conn->connect_error);
@@ -96,7 +96,7 @@ function button1()
               <li><a href="profile.php">Profile</a></li>
               <li><a href="Products.php">Your Products</a></li>
               <li><a href="addProducts.php">Add Products</a></li>
-              <li><a href="updateProducts.php">Update Products</a></li>
+              <li><a href="updateProducts.php">Visualization</a></li>
               <li><a href="deleteProducts.php">Delete Products</a></li>
               <li><a href="customers.php">Customers</a></li>
               <li><a href="map.php">Market Location</a></li>

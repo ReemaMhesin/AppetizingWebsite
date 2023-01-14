@@ -5,7 +5,7 @@ if (isset($_GET['store_name']) &&isset($_GET['latitude'])&&isset($_GET['longitud
     $longitude=$_GET['longitude'];
    
     try{
-        $db=new mysqli('localhost', 'root', '', 'graduation');
+        $db=new mysqli('localhost', 'root', '', 'graduationjawna');
         $qryStr=" INSERT INTO `locations` (`store_name`,`latitude`,`longitude`) VALUES ('".$store_name."', '".$latitude."', '".$longitude."');";
         $db->query($qryStr);
         $db->commit();
@@ -80,7 +80,7 @@ if (isset($_GET['store_name']) &&isset($_GET['latitude'])&&isset($_GET['longitud
         <li><a href="profile.php">Profile</a></li>
         <li><a href="Products.php">Your Products</a></li>
         <li><a href="addProducts.php">Add Products</a></li>
-        <li><a href="updateProducts.php">Update Products</a></li>
+        <li><a href="updateProducts.php">Visualization</a></li>
         <li><a href="deleteProducts.php">Delete Products</a></li>
         <li><a href="customers.php">Customers</a></li>
         <li><a href="map.php">Market Location</a></li>

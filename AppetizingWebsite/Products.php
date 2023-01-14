@@ -12,7 +12,7 @@ if(isset($_POST['deleteee1'])) {
     $num =  $_POST['productNumber'];
 
     try {
-        $conn = new mysqli('localhost', 'root', '', 'graduation');
+        $conn = new mysqli('localhost', 'root', '', 'graduationjawna');
 
 
         $sql = "DELETE FROM products WHERE productNumber='$num' and marketName= '$u' ";
@@ -36,7 +36,7 @@ if(isset($_POST['deleteee1'])) {
 
 
 
-            $db = new mysqli('localhost', 'root', '', 'graduation');
+            $db = new mysqli('localhost', 'root', '', 'graduationjawna');
 
             $qryStr = "select * from products";
             $res = $db->query($qryStr);
@@ -216,7 +216,7 @@ if(isset($_POST['deleteee1'])) {
         <li><a href="profile.php">Profile</a></li>
         <li><a href="Products.php">Your Products</a></li>
         <li><a href="addProducts.php">Add Products</a></li>
-        <li><a href="updateProducts.php">Update Products</a></li>
+        <li><a href="updateProducts.php">Visualization</a></li>
         <li><a href="deleteProducts.php">Delete Products</a></li>
         <li><a href="customers.php">Customers</a></li>
         <li><a href="map.php">Market Location</a></li>
@@ -240,7 +240,7 @@ if(isset($_POST['deleteee1'])) {
     try {
     if(isset($_SESSION['admin'])){
 
-    $conn= mysqli_connect("localhost", "root", "", "graduation");
+    $conn= mysqli_connect("localhost", "root", "", "graduationjawna");
 
 
 
@@ -262,7 +262,7 @@ if(isset($_POST['deleteee1'])) {
         <?php
         $j=$_SESSION['admin'];
 //        $sql = "select * from products where marketName='$j' " ;
-        $connect = mysqli_connect("localhost", "root", "", "graduation");
+        $connect = mysqli_connect("localhost", "root", "", "graduationjawna");
 
         $query = "select * from products where marketName='$j' ";
         $res = mysqli_query($connect, $query);

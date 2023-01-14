@@ -22,7 +22,7 @@ if (isset($_SESSION['pro'])) {
     $num = $_POST['productNumd'];
 
     try {
-        $conn = new mysqli('localhost', 'root', '', 'graduation');
+        $conn = new mysqli('localhost', 'root', '', 'graduationjawna');
 
 
         $sql = "DELETE FROM products WHERE productNumber='$num' and marketName= '$u' ";
@@ -113,7 +113,7 @@ if(isset($_SESSION['admin']))
                 <li><a href="profile.php">Profile</a></li>
                 <li><a href="Products.php">Your Products</a></li>
                 <li><a href="addProducts.php">Add Products</a></li>
-                <li><a href="updateProducts.php">Update Products</a></li>
+                <li><a href="updateProducts.php">Visualization</a></li>
                 <li><a href="deleteProducts.php">Delete Products</a></li>
                 <li><a href="customers.php">Customers</a></li>
                 <li><a href="map.php">Market Location</a></li>
@@ -183,7 +183,7 @@ if(isset($_SESSION['admin']))
 $number=$_GET['productNum1'];
                     $n=$_SESSION['admin'];
 
-                    $connect = mysqli_connect("localhost", "root", "", "graduation");
+                    $connect = mysqli_connect("localhost", "root", "", "graduationjawna");
 
                     $query ="select * from products WHERE productNumber='$number' and marketName='$n'";
 
