@@ -1,82 +1,81 @@
 <?php
 
 session_start();
+if(isset($_SESSION['admin'])){
+    if(isset($_POST['button1'])) {
+        header('location:logout.php');
 
-if(isset($_POST['add'])) {
+    }
 
-    if (isset($_SESSION['admin'])) {
+    if(isset($_POST['deleteee1'])) {
+        $u = $_SESSION['admin'];
+        $n =  $_POST['productname'];
 
-
-        if (isset($_POST['name'])
-            && isset($_POST['quantity']) && isset($_POST['Price'])
-            && isset($_POST['Manufacturing']) && isset($_POST['expiryDate'])
-            &&
-
-            isset($_FILES['image'])
-        ) {
-            $name = $_POST['name'];
-            $productNum = $_POST['productNum'];
-            $quantity = $_POST['quantity'];
-            $price = $_POST['Price'];
-            $manufacturing = $_POST['Manufacturing'];
-            $expiryDate = $_POST['expiryDate'];
-            $amount=$_POST['amount'];
-            $var = $_SESSION['admin'];
-            $connect = mysqli_connect("localhost", "root", "", "graduationjawna");
-//            $file = addslashes(file_get_contents($_FILES['image']['tmp_name']));
+        try {
+            $conn = new mysqli('localhost', 'root', '', 'graduationjawna');
 
 
-            $targetDir = "C:/Users/MIX-IT/Desktop/images/";
-            $file = basename($_FILES["image"]["name"]);
-            $targetFilePath = $targetDir . $file;
-            $fileType = pathinfo($targetFilePath,PATHINFO_EXTENSION);
+            $sql = "DELETE FROM offers WHERE productname='$n' and marketname= '$u' ";
 
-            ?>
-
-            <?php
-            try {
-                $db = new mysqli('localhost', 'root', '', 'graduationjawna');
-                $qryStr = " INSERT INTO `products` (`marketName`, `productName`, `quantity`, `price`, `manufacturing`, `expiryDate`, `productNumber`, `amount`,`image`) VALUES ('" . $var . "', '" . $name . "', '" . $quantity . "', '" . $price . "', '" . $manufacturing . "', '" . $expiryDate . "', '" . $productNum ."', '" . $amount . "','$targetFilePath'  ) ";
-                $db->query($qryStr);
-                $db->commit();
-                $db->close();
+            $conn->query($sql);
+            $conn->commit();
+            $conn->close();
+//        header('Location:deleteProducts.php');
+        } catch (Exception $e) {
+        }
 
 
-            } catch (Exception $e) {
+    }
+    if(isset($_POST['update'])) {
+
+        try {
+
+            $jaw=$_SESSION['admin'];
+//                $sql = "UPDATE admin SET AdminName='" . $name . "',AdminPass='" . $password . "',aboutMarket='" . $aboutMarket . "',place='" . $place . "',street='" . $street . "',city='" . $city . "' where AdminName ='" . $jaw . "'";
+//
+
+
+
+            $db = new mysqli('localhost', 'root', '', 'graduationjawna');
+
+            $qryStr = "select * from offers";
+            $res = $db->query($qryStr);
+
+            for ($i = 0; $i < $res->num_rows; $i++) {
+                $row = $res->fetch_object();
+                if ($row->marketname == $jaw) {
+
+                    $b= $_POST['productname'];
+                    $a= $_POST['newprice'];
+                    $e= $_POST['date'];
+                    $r= $_POST['offer-ratio'];
+
+
+
+
+
+                    $qryStr = "UPDATE `offers` SET  `offer-ratio`= '$r',
+`newprice`= '$a',`date`= '$e'
+                    WHERE `productname`='" . $b . "' and `marketname`='" . $jaw . "'";
+
+                    $rs = $db->query($qryStr);
+
+
+
+                }
             }
 
+
+        } catch (Exception $e) {
         }
+
     }
 }
 
-
-if(isset($_SESSION['admin'])){
-    if(isset($_POST['delete'])) {
-        header('location:logout.php');
-
-    }}
-
-
-?>
-<!DOCTYPE html>
+?><!DOCTYPE html>
 <html lang="en">
 
 <head>
-    <meta charset="utf-8">
-    <meta content="width=device-width, initial-scale=1.0" name="viewport">
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <link href="https://netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.6.3/css/bootstrap-select.min.css" />
-
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.6.3/js/bootstrap-select.min.js"></script>
-    <title>Services - Moderna Bootstrap Template</title>
-    <meta content="" name="description">
-    <meta content="" name="keywords">
-
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
@@ -110,7 +109,92 @@ if(isset($_SESSION['admin'])){
     * License: https://bootstrapmade.com/license/
     ======================================================== -->
 </head>
+<style>
+    @import "https://fonts.googleapis.com/css?family=Montserrat:300,400,700";
+    .rwd-table {
+        margin: 1em 0;
+        min-width: 300px;
+    }
+    .rwd-table tr {
+        border-top: 1px solid #ddd;
+        border-bottom: 1px solid #ddd;
+    }
+    .rwd-table th {
+        display: none;
+    }
+    .rwd-table td {
+        display: block;
+    }
+    .rwd-table td:first-child {
+        padding-top: .5em;
+    }
+    .rwd-table td:last-child {
+        padding-bottom: .5em;
+    }
+    .rwd-table td:before {
+        content: attr(data-th) ": ";
+        font-weight: bold;
+        width: 6.5em;
+        display: inline-block;
+    }
+    @media (min-width: 480px) {
+        .rwd-table td:before {
+            display: none;
+        }
+    }
+    .rwd-table th, .rwd-table td {
+        text-align: left;
+    }
+    @media (min-width: 480px) {
+        .rwd-table th, .rwd-table td {
+            display: table-cell;
+            padding: .25em .5em;
+        }
+        .rwd-table th:first-child, .rwd-table td:first-child {
+            padding-left: 0;
+        }
+        .rwd-table th:last-child, .rwd-table td:last-child {
+            padding-right: 0;
+        }
+    }
 
+    body {
+        padding: 0 2em;
+        font-family: Montserrat, sans-serif;
+        -webkit-font-smoothing: antialiased;
+        text-rendering: optimizeLegibility;
+        color: #444;
+        background: #eee;
+    }
+
+    h1 {
+        font-weight: normal;
+        letter-spacing: -1px;
+        color: #34495E;
+    }
+
+    .rwd-table {
+        background: #34495E;
+        color: #fff;
+        border-radius: .4em;
+        overflow: hidden;
+    }
+    .rwd-table tr {
+        border-color: #46637f;
+    }
+    .rwd-table th, .rwd-table td {
+        margin: .5em 1em;
+    }
+    @media (min-width: 480px) {
+        .rwd-table th, .rwd-table td {
+            padding: 1em !important;
+        }
+    }
+    .rwd-table th, .rwd-table td:before {
+        color: #dd5;
+    }
+
+</style>
 <body>
 
 <!-- ======= Header ======= -->
@@ -135,11 +219,11 @@ if(isset($_SESSION['admin'])){
                 <li><a href="customers.php">Customers</a></li>
                 <li><a href="map.php">Market Location</a></li>
                 <li><a href="offers.php">Market Offers</a></li>
-
+                <li><a href="myorder.php">My Offers</a></li>
             </ul>
             <i class="bi bi-list mobile-nav-toggle"></i>
             <form method="post">
-                <input  type="submit"  value="Sign Out " name="delete" class="active " style="background-color:rgba(109, 161, 75,75);color: white;font-weight: bold;border: none;margin-left: 6px;font-size: 13px">
+                <input  type="submit"  value="Sign Out " name="button1" class="active " style="background-color:rgba(109, 161, 75,0);color: white;font-weight: bold;border: none;margin-left: 6px;font-size: 13px">
             </form>
         </nav><!-- .navbar -->
 
@@ -148,70 +232,73 @@ if(isset($_SESSION['admin'])){
 
 <main id="main">
 
-    <!-- ======= Our Services Section ======= -->
-    <section class="breadcrumbs">
-        <div class="container">
+    <?php
 
-            <div class="d-flex justify-content-between align-items-center">
-                <h2>Add Special Products</h2>
-                <ol>
-                    <li><a href="homePage.php">Home</a></li>
-                    <li>Add Your Products</li>
-                </ol>
-            </div>
 
-        </div>
-    </section><!-- End Our Services Section -->
 
-    <!-- ======= Services Section ======= -->
-    <section id="blog" class="blog">
-        <div class="container" data-aos="fade-up">
 
-            <div class="row justify-content-center">
+    try {
+    if(isset($_SESSION['admin'])){
 
-                <div class="col-lg-6">
-                    <form   method="post" enctype="multipart/form-data" class="myform" >
-                        <div class="row ">
-                            <label for="name" class="label"><i class="fa fa-phone"></i>Product Name</label>
-                            <div class="mb-3">
-                                <input type="text" class="form-control" name="name" id="name" placeholder="Product Name" required>
+    $conn= mysqli_connect("localhost", "root", "", "graduationjawna");
 
-                            </div>
-                            <label for="productNum" class="label"><i class="fa fa-phone"></i>Product Number</label>
-                            <div class="mb-3">
-                                <input type="text" class="form-control" name="productNum" id="productNum" placeholder="Product Number" required>
 
-                            </div>
-                            <label for="quantity" class="label"><i class="fa fa-phone" ></i>Quantity</label>
-                            <div class=" mb-3">
-                                <input type="text" class="form-control" name="quantity" id="quantity" placeholder="Quantity" required>
-                            </div>
-                            <label for="amount" class="label"><i class="fa fa-phone" ></i>Amount</label>
-                            <div class=" mb-3">
-                                <input type="text" class="form-control" name="amount" id="amount" placeholder="Amount" required>
-                            </div>
-                            <label for="Price" class="label"><i class="fa fa-phone"></i> Price</label>
-                            <div class=" mb-3">
-                                <input type="text" class="form-control" name="Price" id="Price" placeholder="Price In Dollar" required>
-                            </div>
-                            <label for="Manufacturing" class="label"><i class="fa fa-phone"></i>Manufacturing</label>
-                            <div class=" mb-3">
-                                <input type="text" class="form-control" name="Manufacturing" id="Manufacturing" placeholder="Manufacturing" required>
-                            </div>
-                            <label for="expiryDate" class="label"><i class="fa fa-phone"></i>Expiry date</label>
-                            <div class=" mb-3">
-                                <input type="text" class="form-control" name="expiryDate" id="expiryDate" placeholder="Expiry date" required>
-                            </div>
 
-                            <input type="file" class="form-control" id="image" placeholder="image" name="image" required>
 
-                            <div class="text-center"> <input type="submit" value="Add Product" id="add" name="add"></div>
+    ?>
+    <table border="1px" class="rwd-table">
+        <tr>
+            <th>productName</th>
+            <th>newprice</th>
+            <th>offer-ratio</th>
+            <th>date</th>
 
-                        </div>
-                    </form>
-                </div>
-            </div>
-    </section><!-- End Blog Section -->
+
+
+
+        </tr>
+        <?php
+        $j=$_SESSION['admin'];
+        //        $sql = "select * from products where marketName='$j' " ;
+        $connect = mysqli_connect("localhost", "root", "", "graduationjawna");
+
+        $query = "select * from offers where marketname='$j' ";
+        $res = mysqli_query($connect, $query);
+        $a=1;
+
+
+        for($i=0;$i<$res->num_rows;$i++)
+        {
+            $row = mysqli_fetch_array($res);
+
+            ?>
+            <form   method="post"  >
+                <tr>
+                    <td>  <input type="text" style="width:200px "  name="productname" id="productname"  value="<?php echo $row["productname"]; ?>">
+
+                    </td>
+
+                    <td><input type="text"  style="width:50px "name="newprice" id="newprice"  value="<?php echo $row["newprice"]; ?>">
+                    </td>
+
+                    <td>
+                        <input type="text" style="width:100px " name="offer-ratio" id="offer-ratio"  value="<?php echo $row["offer-ratio"]; ?>">
+                    </td>
+                    <td>
+                        <input type="text"  style="width:200px " name="date" id="date"  value="<?php echo $row["date"]; ?>">
+
+                    </td>
+                    <td> <input type="submit" value="delete" name="deleteee1"  id="deleteee1"></td>
+                    <td> <input type="submit" value="update" name="update"  id="update"></td></form>
+
+            </tr>
+            <?php
+        }}}catch(Exception $e){
+
+        }
+
+        ?>
+    </table>
 
 </main><!-- End #main -->
 
@@ -304,27 +391,3 @@ if(isset($_SESSION['admin'])){
 </body>
 
 </html>
-<script>
-    $(document).ready(function(){
-
-        $('#add').click(function(){
-
-            var image_name = $('#image').val();
-            if(image_name == '')
-            {
-                alert('Please Select Image');
-                return false;
-            }
-            else
-            {
-                var extension = $('#image').val().split('.').pop().toLowerCase();
-                if(jQuery.inArray(extension, ['gif','png','jpg','jpeg']) == -1)
-                {
-                    alert('Invalid Image File');
-                    $('#image').val('');
-                    return false;
-                }
-            }
-        });
-    });
-</script>;

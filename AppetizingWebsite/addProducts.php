@@ -183,7 +183,7 @@ if(isset($_SESSION['admin'])){
         <li><a href="deleteProducts.php">Delete Products</a></li>
         <li><a href="customers.php">Customers</a></li>
         <li><a href="map.php">Market Location</a></li>
-
+          <li><a href="offers.php">Market Offers</a></li>
       </ul>
       <i class="bi bi-list mobile-nav-toggle"></i>
       <form method="post">

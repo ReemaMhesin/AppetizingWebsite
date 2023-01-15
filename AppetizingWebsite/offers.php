@@ -1,5 +1,52 @@
 <?php
 
+$values = array(
+    "wheat", "rye", "oats", "corn", "barley", "buckwheat", "rice", "bread", "rolls", "buns", "cakes", "cookies", "pies", "cereal", "corn flakes",
+    "icre flakes", "muesli", "popcorn", "pasta", "macaroni", "noodles", "spaghetti", "vermicelli", "ravioli", "dumplings", "flour", "dough", "batter",
+    "cake mix", "bread",
+    "white bread", "whole-wheat bread", " rye bread", "raisin bread", " garlic bread", "corn bread", "sourdough bread",
+    "tortilla", "roll", "bread roll", "sesame roll", " poppy seed roll", "cinnamon roll", "cracker", "biscuit", "cookie", "toast",
+    "wafer", "waffle", "crouton", "cake", "birthday cake", "cheesecake", "cupcake", " fudge brownie", " oatmeal cookie",
+    "chocolate cookie", "pie", "apple pie", " blueberry pie", "pizza", "blueberry muffin", "biscuit", " sour cream", "biscuit", "pancake",
+    "doughnut", "fritter", "waffle", "meat", "beef", "mutton", "roast beef", "ground beef", "hamburger",
+    "lamb chop", "bacon", "pastrami", "corned beef", "sausage", "salami", "smoked sausage", "hot dogs",
+    "chicken", "turkey", "goose", "duck", "fowl", "eggs", "drumstick", "chicken wing", "chicken breast", "fish", "salmon", "trout",
+    "sturgeon", "cod", "sole", "flatfish", "plaice", "halibut", "tuna",
+    "mullet", "sardine", "catfish", "caviar", "fish steak",
+    " salmon steak", "fish fillet", "smoked fish", " salted fish", "seafood", "crab",
+    "squid", "milk", "whole milk", "low-fat milk", "nonfat milk", "pasteurized milk", "dry milk", "condensed milk", "yogurt",
+    "sour milk", "buttermilk", "cream", " sour cream", "butter",
+    " homemade cheese", "cream cheese", "cheese", "Parmesan", "Cheddar", "Mozzarella",
+    "ice cream", "vanilla ice cream", "chocolate ice cream", "fruit ice", "strawberry ice", "ice-cream cone", "popsicle",
+    "sundae", "apple", "apricot",
+    "nectarine", "plum", "grapes", "cherry", "sweet cherry", "lemon", "lime", "orange", "tangerine", "grapefruit", "banana", "kiwi",
+    "pineapple",
+    "olive", "fig", "papaya", "mango", "avocado", "coconut", "persimmon", "melon", "watermelon", "berry", "strawberry",
+    "cranberry", "blueberry", "bilberry", "black currants", "red currants", "gooseberry", "blackberry", "whortleberry",
+    " dried fruit", "dried apricots",
+    "raisins", "figs", "prunes", "dates", "candied fruit", "nuts", "hazelnuts", "almonds", "chestnuts", "peanuts", "pistachio nuts",
+    "cashew nuts", "pecans", " apricot pits", "pumpkin seeds", "sunflower seeds", "raspberry jam", " cranberry jam",
+    " grape jelly", "marmalade", "honey", " peanut butter",
+    "leaf vegetables", "tomato", "cucumber", "carrot", "beet", "potato", "onion",
+    " green onions", "leek", "sweet pepper", "paprika", "hot pepper"
+, "cabbage", "cauliflower", "broccoli", "kohlrabi", "mushrooms", "lettuce", "spinach",
+    "celery", "asparagus", "artichoke", "cress", "garlic", "aubergine", "squash", "zucchini",
+    "pumpkin", "turnip", "parsnip", "pickled cucumbers ", "marinated cucumbers", "sauerkraut",
+    "beans", "soybeans",
+    "lentil", "corn", "coffee beans", "dill", "parsley", "coriander", "mint", "apple juice", "orange juice",
+    "grapefruit juice", "lemon juice", "tomato juice", "fresh fruit juice", "tea", "green tea", "black tea", "iced tea",
+    "coffee", "instant coffee", "espresso", "cappuccino", "decaf",
+    " black coffee", " hot chocolate", "milk shake", "mineral water",
+    "soda water", "lemonade", "cocktail", "punch", "tomato sauce", "ketchup",
+    "mushroom sauce", "meat sauce", "steak sauce", "gravy", "spaghetti sauce", "hot sauce", "chili sauce", "barbecue sauce",
+
+    "salad dressing", "Russian dressing", "Italian dressing", "French dressing", "vegetable oil",
+    "olive oil", " corn oil", "sunflower seed oil", "sesame oil", "margarine",
+    "seeds", "vinegar", "pepper",
+    "salt", "dill", "parsley", "mint", "coriander", "basil", " bay leaf",
+    "cinnamon", "caraway", "thyme", "cardamom", "rosemary", "garlic", "mustard", "lemon peel", "candy",
+    "caramels"
+);
 session_start();
 
 if(isset($_POST['add'])) {
@@ -7,36 +54,24 @@ if(isset($_POST['add'])) {
     if (isset($_SESSION['admin'])) {
 
 
-        if (isset($_POST['name'])
-            && isset($_POST['quantity']) && isset($_POST['Price'])
-            && isset($_POST['Manufacturing']) && isset($_POST['expiryDate'])
-            &&
-
-            isset($_FILES['image'])
-        ) {
-            $name = $_POST['name'];
-            $productNum = $_POST['productNum'];
-            $quantity = $_POST['quantity'];
+        if (isset($_POST['rate'])&&isset($_POST['name'])
+            && isset($_POST['Price']) && isset($_POST['expiryDate'])
+           )
+         {$name=$_POST['name'];
+            $rate = $_POST['rate'];
+             $A=$_SESSION['admin'];
             $price = $_POST['Price'];
-            $manufacturing = $_POST['Manufacturing'];
+
             $expiryDate = $_POST['expiryDate'];
-            $amount=$_POST['amount'];
-            $var = $_SESSION['admin'];
-            $connect = mysqli_connect("localhost", "root", "", "graduationjawna");
-//            $file = addslashes(file_get_contents($_FILES['image']['tmp_name']));
 
-
-            $targetDir = "C:/Users/MIX-IT/Desktop/images/";
-            $file = basename($_FILES["image"]["name"]);
-            $targetFilePath = $targetDir . $file;
-            $fileType = pathinfo($targetFilePath,PATHINFO_EXTENSION);
 
             ?>
 
             <?php
             try {
                 $db = new mysqli('localhost', 'root', '', 'graduationjawna');
-                $qryStr = " INSERT INTO `products` (`marketName`, `productName`, `quantity`, `price`, `manufacturing`, `expiryDate`, `productNumber`, `amount`,`image`) VALUES ('" . $var . "', '" . $name . "', '" . $quantity . "', '" . $price . "', '" . $manufacturing . "', '" . $expiryDate . "', '" . $productNum ."', '" . $amount . "','$targetFilePath'  ) ";
+                $qryStr = " INSERT INTO `offers` (`marketname`, `productname`, `offer-ratio`, `newprice`, `date`) 
+ VALUES ('" . $A . "', '" . $name . "', '" . $rate . "', '" . $price . "',  '" . $expiryDate . "' ) ";
                 $db->query($qryStr);
                 $db->commit();
                 $db->close();
@@ -135,7 +170,7 @@ if(isset($_SESSION['admin'])){
                 <li><a href="customers.php">Customers</a></li>
                 <li><a href="map.php">Market Location</a></li>
                 <li><a href="offers.php">Market Offers</a></li>
-
+                <li><a href="myorder.php">My Offers</a></li>
             </ul>
             <i class="bi bi-list mobile-nav-toggle"></i>
             <form method="post">
@@ -153,7 +188,7 @@ if(isset($_SESSION['admin'])){
         <div class="container">
 
             <div class="d-flex justify-content-between align-items-center">
-                <h2>Add Special Products</h2>
+                <h2>Add Products</h2>
                 <ol>
                     <li><a href="homePage.php">Home</a></li>
                     <li>Add Your Products</li>
@@ -174,36 +209,47 @@ if(isset($_SESSION['admin'])){
                         <div class="row ">
                             <label for="name" class="label"><i class="fa fa-phone"></i>Product Name</label>
                             <div class="mb-3">
-                                <input type="text" class="form-control" name="name" id="name" placeholder="Product Name" required>
+                                <div class="row-fluid">
+                                    <select class="selectpicker" data-show-subtext="true" data-live-search="true" style="height: 10px" id="name" required name="name">
+                                        <?php
+                                        foreach ($values as $key=>$value){
+                                            $selected = ($key==0)?" Selected=\"Selected\"": "";
+                                            echo "<option data-subtext=\"\" $selected > $value </option>";
+                                        }
+                                        ?>
+                                    </select>
 
+                                </div>
+                                <!--                                    <select id="name" required name="name" class="form-control">-->
+                                <!--                                        <option id="srch" type="text" name="search">-->
+                                <!--                                 --><?php
+                                //
+                                //                                        for ($s = 0; $s < count($values); $s++) {
+                                //
+                                //                                            echo
+                                //                                                '<option id="choice" name="choice" value="' . $values[$s] . '">' . $values[$s] . '</option>';
+                                //
+                                //                                            //304
+                                //                                        }
+                                //
+                                //                                        ?>
+                                <!--                                    </select>-->
                             </div>
-                            <label for="productNum" class="label"><i class="fa fa-phone"></i>Product Number</label>
-                            <div class="mb-3">
-                                <input type="text" class="form-control" name="productNum" id="productNum" placeholder="Product Number" required>
 
-                            </div>
-                            <label for="quantity" class="label"><i class="fa fa-phone" ></i>Quantity</label>
+                            <label for="rate" class="label"><i class="fa fa-phone" ></i>rate</label>
                             <div class=" mb-3">
-                                <input type="text" class="form-control" name="quantity" id="quantity" placeholder="Quantity" required>
+                                <input type="text" class="form-control" name="rate" id="rate" placeholder="offer ratio" required>
                             </div>
-                            <label for="amount" class="label"><i class="fa fa-phone" ></i>Amount</label>
-                            <div class=" mb-3">
-                                <input type="text" class="form-control" name="amount" id="amount" placeholder="Amount" required>
-                            </div>
+
                             <label for="Price" class="label"><i class="fa fa-phone"></i> Price</label>
                             <div class=" mb-3">
                                 <input type="text" class="form-control" name="Price" id="Price" placeholder="Price In Dollar" required>
                             </div>
-                            <label for="Manufacturing" class="label"><i class="fa fa-phone"></i>Manufacturing</label>
-                            <div class=" mb-3">
-                                <input type="text" class="form-control" name="Manufacturing" id="Manufacturing" placeholder="Manufacturing" required>
-                            </div>
+
                             <label for="expiryDate" class="label"><i class="fa fa-phone"></i>Expiry date</label>
                             <div class=" mb-3">
                                 <input type="text" class="form-control" name="expiryDate" id="expiryDate" placeholder="Expiry date" required>
                             </div>
-
-                            <input type="file" class="form-control" id="image" placeholder="image" name="image" required>
 
                             <div class="text-center"> <input type="submit" value="Add Product" id="add" name="add"></div>
 
